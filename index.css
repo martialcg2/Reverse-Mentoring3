@@ -1,0 +1,5 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body { margin: 0; background: #F1F5F9; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+input[type="range"] { accent-color: #0E7C6B; }

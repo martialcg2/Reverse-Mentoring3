@@ -1,0 +1,21 @@
+# Blueprint Render — déploiement gratuit.
+# 1) Créez une base PostgreSQL gratuite sur Neon (neon.tech) et copiez son URL.
+# 2) Poussez ce dépôt sur GitHub, puis "New +" > "Blueprint" sur render.com.
+# 3) Renseignez DATABASE_URL (URL Neon) et CORS_ORIGINS (URL de votre frontend).
+services:
+  - type: web
+    name: cross-mentoring-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true          # clé JWT générée automatiquement
+      - key: DATABASE_URL
+        sync: false                  # à renseigner : URL PostgreSQL (Neon)
+      - key: CORS_ORIGINS
+        sync: false                  # ex : https://mon-frontend.vercel.app
+      - key: SEED_ON_STARTUP
+        value: "true"                # peupler la démo au 1er démarrage (idempotent)
